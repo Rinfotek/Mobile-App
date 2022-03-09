@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FontAwesome from 'react-native-vector-icons/Entypo'; 
 import { Slider } from 'react-native-elements';
+import RadioButton from './Components/RadioButton';
 
 function HomeScreen({ navigation }) {
   return (
@@ -23,16 +24,9 @@ function HomeScreen({ navigation }) {
      </View>
      <View style={{flex:3}}>
      <TouchableOpacity  onPress={() => navigation.navigate('Details')} style={{backgroundColor:"red"}}>
-        <Text style={[styles.text,styles.font]}> <FontAwesome name={"star"} size={40} color="green"/>INFINILITE-1</Text>
+        <Text style={[styles.text,styles.font]}> <FontAwesome name={"star"} size={40} color="green" />INFINILITE-1</Text>
       </TouchableOpacity>
       </View>
-     
-      {/* <Button
-        title="INFINILITE-1"
-        onPress={() => navigation.navigate('Details')}
-        color="red"
-        
-      /> */}
       <View style={{flex:3}}>
        <Text style={[styles.text,styles.font]}><FontAwesome name={"star"} size={40} color="white"/>INFINILITE-2</Text>
      </View>
@@ -88,25 +82,32 @@ function DetailsScreen({ navigation }) {
 
      </View>
      <View style={{flex:.5}}>
-     <TouchableOpacity   onPress={() => navigation.goBack()} ><Text style={{fontSize:30,fontWeight:"200",backgroundColor:"white",color:"#101010",height:40,width:100,textAlign:"center",borderRadius:10,alignItems:"center"}}>Back</Text>
-     </TouchableOpacity>
+     <TouchableHighlight   onPress={() => navigation.goBack()} ><Text style={{fontSize:30,fontWeight:"200",backgroundColor:"white",color:"#101010",height:40,width:100,textAlign:"center",borderRadius:10,alignItems:"center"}}>Back</Text>
+     </TouchableHighlight>
      </View>   
     </View>
     
   );
 }
 function SliderScreen({ navigation }) {
-  const [value, setValue] = useState(0);
+  const [value, setValue]=useState(0);
   const[value2,setValue2]=useState(0);
+  const [option, setOption]=useState(null);
+  const data = [
+    { value: 'ON' },
+    { value: 'OFF' }, 
+    { value: 'BLINK' },
+    { value: 'BREATH' }
+  ]
   return (
     < View style={styles.container2}>
     <Text style={{fontSize:40,fontWeight:"bold" ,textAlign:"center",flex:.3,marginTop:30}}>LED</Text>
         <Text style={{fontSize:40,fontWeight:"bold" ,textAlign:"center"}}> CONTROLLER</Text>
         <View style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
-        <Text>BLINK</Text>
-      <View style={{height:50,width:50,backgroundColor:"green"}}></View>
-      <View style={{height:50,width:50,backgroundColor:"red",marginLeft:2}}></View>
-      <Text>BREATH</Text>
+        
+        <RadioButton data={data} onSelect={(value) => setOption(value)} />
+       
+      
     </View>
        
         <View style={[styles.contentView]}>
@@ -154,6 +155,14 @@ function SliderScreen({ navigation }) {
 function SliderScreen1({ navigation }) {
   const [value, setValue] = useState(0);
   const [value2, setValue2] = useState(0);
+  const [option, setOption]=useState(null);
+  const data = [
+    { value: 'ON' },
+    { value: 'OFF' }, 
+    { value: 'BLINK' },
+    { value: 'BREATH' }
+  ]
+ 
   return (
     < View style={styles.container2}>
     
@@ -161,10 +170,10 @@ function SliderScreen1({ navigation }) {
         <Text style={{fontSize:40,fontWeight:"bold" ,textAlign:"center"}}> CONTROLLER</Text>
         <View style={styles.contentView}>
         <View style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
-        <Text>BLINK</Text>
-      <View style={{height:50,width:50,backgroundColor:"green"}}></View>
-      <View style={{height:50,width:50,backgroundColor:"red",marginLeft:2}}></View>
-      <Text>BREATH</Text>
+       
+        <RadioButton data={data} onSelect={(value) => setOption(value)} />
+      
+      
     </View>
     
         <Slider
@@ -209,6 +218,14 @@ function SliderScreen1({ navigation }) {
 function SliderScreen2({ navigation }) {
   const [value, setValue] = useState(0);
   const [value2, setValue2] = useState(0);
+  const [option, setOption]=useState(null);
+  
+  const data = [
+    { value: 'ON' },
+    { value: 'OFF' }, 
+    { value: 'BLINK' },
+    { value: 'BREATH' }
+  ]
   return (
     < View style={styles.container2}>
     
@@ -216,10 +233,9 @@ function SliderScreen2({ navigation }) {
     <Text style={{fontSize:40,fontWeight:"bold",textAlign:"center"}}> CONTROLLER</Text>
     <View style={[styles.contentView]}>
     <View style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
-        <Text>BLINK</Text>
-      <View style={{height:50,width:50,backgroundColor:"green"}}></View>
-      <View style={{height:50,width:50,backgroundColor:"red",marginLeft:2}}></View>
-      <Text>BREATH</Text>
+       
+        <RadioButton data={data} onSelect={(value) => setOption(value)} />
+     
     </View>
       
         <Slider
@@ -261,18 +277,18 @@ function SliderScreen2({ navigation }) {
     
   )
 }
-
+ 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: '' }}options={{headerShown: false}}  />
-        <Stack.Screen name="Details" component={DetailsScreen} options={{ title: '' }} options={{headerShown: false}} />
-        <Stack.Screen name="Sliders" component={SliderScreen} options={{ title: '' }} options={{headerShown: false}} />
-        <Stack.Screen name="Sliders1" component={SliderScreen1} options={{ title: '' }} options={{headerShown: false}} />
-        <Stack.Screen name="Sliders2" component={SliderScreen2}options={{ title: '' }} options={{headerShown: false}} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: '' ,headerShown:false }} />
+        <Stack.Screen name="Details" component={DetailsScreen} options={{ title: '',headerShown:false }} />
+        <Stack.Screen name="Sliders" component={SliderScreen} options={{ title: '',headerShown:false }} />
+        <Stack.Screen name="Sliders1" component={SliderScreen1} options={{ title: '',headerShown:false }} />
+        <Stack.Screen name="Sliders2" component={SliderScreen2}options={{ title: '',headerShown:false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -287,10 +303,8 @@ const styles = StyleSheet.create({
   , text:{
     color:"white",
     fontSize:40,
-    fontStyle:"normal",
     fontWeight:"bold",
-    
-    
+      
   },
   logo:{
     backgroundColor:"green",
@@ -302,7 +316,7 @@ const styles = StyleSheet.create({
   font:{
     fontSize:30,
     letterSpacing:3,
-    justifyContent:"center"
+    
     
   },
   align:{
@@ -355,7 +369,6 @@ const styles = StyleSheet.create({
     marginBottom : 10
   },
  
-  
   
 });
 export default App;
